@@ -468,6 +468,9 @@ export class Client {
 	 * ensures it runs after everything else.
 	 */
 	private async ensureResolved(proxyId: number | Module): Promise<void> {
+		if (!this.proxies.has(proxyId)) {
+			throw new Error(`proxy ${proxyId} disposed too early`);
+		}
 		await (this.proxies.get(proxyId)!).promise;
 	}
 
